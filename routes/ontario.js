@@ -11,11 +11,13 @@ router.get('/', async (req, res) => {
     const resource = req.query.resource;
     const resourceObj = {
       all: 'ed270bb8-340b-41f9-a7c6-e8ef587e6d11',
-      region: '8a88fe6d-d8fb-41a3-9d04-f0550a44999f'
+      testing_locations: 'c60993bb-3988-4648-9be9-398dee480514',
+      region: 'd1bfe1ad-6575-4352-8302-09ca81f7ddfc',
+      daily_change_phu: '8a88fe6d-d8fb-41a3-9d04-f0550a44999f',
     }
 
     const options = {
-      uri: `https://data.ontario.ca/api/3/action/datastore_search?resource_id=${resourceObj[resource]}&limit=9999999`,
+      uri: `https://data.ontario.ca/api/3/action/datastore_search?resource_id=${resourceObj[resource]}&limit=99999999`,
       method: 'GET',
       headers: { 'user-agent': 'node.js' }
     }
