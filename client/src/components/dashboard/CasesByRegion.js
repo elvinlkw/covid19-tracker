@@ -75,7 +75,7 @@ const CasesByRegion = ({ cases }) => {
 
   return loading ? (<Spinner />) : (
     <Fragment>
-      <h3>Cases by Health Regions</h3>
+      <h3>Cases by Health Regions - {selected_date}</h3>
       {!loading && regionData.length === 0 
         ? (<p><em>No Data Available for that period</em></p>) 
         : (<table className="table">

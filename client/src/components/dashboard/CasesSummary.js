@@ -27,77 +27,75 @@ const CasesSummary = ({ cases }) => {
   }
 
   return (
-    <Fragment>
+    <div className="mb-4">
       <h1 className="text-center mt-3 mb-3">Cases in Ontario</h1>
-      <div className="mt-5 mb-5">
-        <div className="d-flex justify-content-center">
-          <div className="form-group col-md-4">
-            <select className="form-control" value={selectedId} onChange={handleChange} >
-              <option value={-1}>Total Cases</option>
-              {cases.map((day, index) => (
-              <option key={day._id} value={index}>{day["Reported Date"]}</option>))}
-            </select>
-          </div>
-        </div>
-        <div className="row d-flex justify-content-around flex-wrap">
-          <Card
-            card={{
-              title: 'Confirmed',
-              text: '# of Cases',
-              style: 'border-positive'
-            }}
-          >
-            {selectedId === cases.length-1 
-              ? convertToString(cases[selectedId]["Total Cases"])
-              : selectedId === -1 
-                ? convertToString(cases[0]["Total Cases"])
-                : convertToString(cases[selectedId]["Total Cases"] - cases[selectedId+1]["Total Cases"])}
-          </Card>
-          <Card
-            card={{
-              title: 'Recovered',
-              text: '# of Cases',
-              style: 'border-recovered'
-            }}
-          >
-            {selectedId === cases.length-1 
-              ? convertToString(cases[selectedId].Resolved)
-              : selectedId === -1 
-                ? convertToString(cases[0].Resolved)
-                : convertToString(cases[selectedId].Resolved - cases[selectedId+1].Resolved)}
-          </Card>
-          <Card
-            card={{
-              title: 'Deaths',
-              text: '# of Cases',
-              style: 'border-deaths'
-            }}
-          >
-            {selectedId === cases.length-1 
-                ? convertToString(cases[selectedId].Deaths)
-                : selectedId === -1 
-                  ? convertToString(cases[0].Deaths)
-                  : convertToString(cases[selectedId].Deaths - cases[selectedId+1].Deaths)}
-          </Card>
-          {selected_date === "Total" && !vaccinations_loading && vaccinations_data.length > 0 && 
-          <Card
-            card={{
-              title: 'Vaccine Doses Administered',
-              text: '# of doses',
-              style: 'border-doses'
-            }}
-          >{vaccinations_data[0].total_doses_administered}</Card>}
-          {selected_date === "Total" && !vaccinations_loading && vaccinations_data.length > 0 && 
-          <Card
-            card={{
-              title: 'Vaccinations Completed',
-              text: '# of vaccinations',
-              style: 'border-vaccines'
-            }}
-          >{vaccinations_data[0].total_vaccinations_completed}</Card>}
+      <div className="d-flex justify-content-center">
+        <div className="form-group col-md-4">
+          <select className="form-control" value={selectedId} onChange={handleChange} >
+            <option value={-1}>Total Cases</option>
+            {cases.map((day, index) => (
+            <option key={day._id} value={index}>{day["Reported Date"]}</option>))}
+          </select>
         </div>
       </div>
-    </Fragment>
+      <div className="row d-flex justify-content-around flex-wrap">
+        <Card
+          card={{
+            title: 'Confirmed',
+            text: '# of Cases',
+            style: 'border-positive'
+          }}
+        >
+          {selectedId === cases.length-1 
+            ? cases[selectedId]["Total Cases"] === null ? 0 : convertToString(cases[selectedId]["Total Cases"])
+            : selectedId === -1 
+              ? convertToString(cases[0]["Total Cases"])
+              : convertToString(cases[selectedId]["Total Cases"] - cases[selectedId+1]["Total Cases"])}
+        </Card>
+        <Card
+          card={{
+            title: 'Recovered',
+            text: '# of Cases',
+            style: 'border-recovered'
+          }}
+        >
+          {selectedId === cases.length-1 
+            ? cases[selectedId].Resolved === null ? 0 : convertToString(cases[selectedId].Resolved)
+            : selectedId === -1 
+              ? convertToString(cases[0].Resolved)
+              : convertToString(cases[selectedId].Resolved - cases[selectedId+1].Resolved)}
+        </Card>
+        <Card
+          card={{
+            title: 'Deaths',
+            text: '# of Cases',
+            style: 'border-deaths'
+          }}
+        >
+          {selectedId === cases.length-1 
+              ? cases[selectedId].Resolved === null ? 0 : convertToString(cases[selectedId].Resolved)
+              : selectedId === -1 
+                ? convertToString(cases[0].Deaths)
+                : convertToString(cases[selectedId].Deaths - cases[selectedId+1].Deaths)}
+        </Card>
+        {selected_date === "Total" && !vaccinations_loading && vaccinations_data.length > 0 && 
+        <Card
+          card={{
+            title: 'Vaccine Doses Administered',
+            text: '# of doses',
+            style: 'border-doses'
+          }}
+        >{vaccinations_data[0].total_doses_administered}</Card>}
+        {selected_date === "Total" && !vaccinations_loading && vaccinations_data.length > 0 && 
+        <Card
+          card={{
+            title: 'Vaccinations Completed',
+            text: '# of vaccinations',
+            style: 'border-vaccines'
+          }}
+        >{vaccinations_data[0].total_vaccinations_completed}</Card>}
+      </div>
+    </div>
   )
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CasesSummary from './CasesSummary';
 import CasesByRegion from './CasesByRegion';
+// import Chart from './Chart';
 import Spinner from '../layout/Spinner';
 import { getOntarioCasesByRegion, getAllCases } from '../../actions/ontario';
 
@@ -31,7 +32,7 @@ const Dashboard = () => {
   
       {!loading_region && cases_by_region !== null && cases_by_region.length  &&
       (<CasesByRegion cases={cases_by_region} />)}
-      
+      {/* <Chart /> */}
     </div>
   )
 }

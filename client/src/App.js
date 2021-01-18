@@ -17,7 +17,7 @@ const App = () => {
         <Navbar />
         <div className="container">
           <Switch>
-            <Route path="/" component={Dashboard} />
+            <Route exact path="/" component={Dashboard} />
           </Switch>
         </div>
       </Router>
