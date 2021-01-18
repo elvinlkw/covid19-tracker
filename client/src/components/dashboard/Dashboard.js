@@ -14,15 +14,13 @@ const Dashboard = () => {
   } = useSelector(state => state.ontario);
 
   useEffect(() => {
+    if(loading_region) {
+      dispatch(getOntarioCasesByRegion());
+    }
     if(loading) {
       dispatch(getAllCases());
     }
-
-    // if(loading_region) {
-      dispatch(getOntarioCasesByRegion());
-    // }
-
-  }, []);
+  }, [dispatch, loading, loading_region]);
 
   return (
     <div>

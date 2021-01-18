@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { setSelectedDate, clearSelectedDate } from '../../actions/ontario';
+import { setSelectedDate } from '../../actions/ontario';
 
 const CasesSummary = ({ cases }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const CasesSummary = ({ cases }) => {
     setSelectedId(parseInt(index));
     if(parseInt(index) !== -1) {
       dispatch(setSelectedDate(cases[index]["Reported Date"]));
-    } else dispatch(clearSelectedDate());
+    } else dispatch(setSelectedDate("Total"));
   }
 
   return (
