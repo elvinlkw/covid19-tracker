@@ -10,7 +10,7 @@ const Dashboard = () => {
     cases_by_region,
     loading_region,
     cases,
-    loading,
+    loading
   } = useSelector(state => state.ontario);
 
   useEffect(() => {

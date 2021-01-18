@@ -2,8 +2,11 @@
 
 :root {
   --primary-blue: #1fa1e7;
-  --primary-green: #3fcf1a;
+  --primary-green: #369e1c;
+  --very-green: #3ce612;
   --primary-red: #f03a3a;
+  --primary-yellow: #ffc007;
+  --primary-purple: #800080;
 }
 
 body {
@@ -16,13 +19,25 @@ body {
 }
 
 .border-recovered {
-  border-bottom: 8px solid var(--primary-green)
+  border-bottom: 8px solid var(--primary-green);
 }
 
 .border-deaths {
-  border-bottom: 8px solid var(--primary-red)
+  border-bottom: 8px solid var(--primary-red);
+}
+
+.border-doses {
+  border-bottom: 8px solid var(--primary-yellow);
+}
+
+.border-vaccines {
+  border-bottom: 8px solid var(--primary-purple);
 }
 
 .table {
   margin-top: 2rem;
+}
+
+.card {
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
 }

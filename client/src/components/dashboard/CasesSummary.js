@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { setSelectedDate } from '../../actions/ontario';
+import { useDispatch, useSelector } from 'react-redux';
+import Card from './Card';
+import { setSelectedDate, getVaccinations } from '../../actions/ontario';
 
 const CasesSummary = ({ cases }) => {
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState(0);
+  const { vaccinations_data, vaccinations_loading, selected_date } = useSelector(state => state.ontario);
 
   useEffect(() => {
+    dispatch(getVaccinations());
     dispatch(setSelectedDate(cases[0]["Reported Date"]));
   }, [dispatch, cases]);
 
@@ -17,6 +20,10 @@ const CasesSummary = ({ cases }) => {
     if(parseInt(index) !== -1) {
       dispatch(setSelectedDate(cases[index]["Reported Date"]));
     } else dispatch(setSelectedDate("Total"));
+  }
+
+  const convertToString = num => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   return (
@@ -30,46 +37,62 @@ const CasesSummary = ({ cases }) => {
           </select>
         </div>
       </div>
-      <div className="row d-flex justify-content-between">
-        <div className="card col-md-3 border-positive">
-          <div className="card-body text-center">
-            <h5 className="card-title">Confirmed</h5>
-            <p className="card-text"># of cases:</p>
-            <h3 className="card-title">
-              {selectedId === cases.length-1 
-                ? cases[selectedId]["Total Cases"] 
-                : selectedId === -1 
-                  ? cases[0]["Total Cases"] 
-                  : cases[selectedId]["Total Cases"] - cases[selectedId+1]["Total Cases"]}
-            </h3>
-          </div>
-        </div>
-        <div className="card col-md-3 border-recovered">
-          <div className="card-body text-center">
-            <h5 className="card-title">Recovered</h5>
-            <p className="card-text"># of cases:</p>
-            <h3 className="card-title">
-            {selectedId === cases.length-1 
-              ? cases[selectedId].Resolved 
+      <div className="row d-flex justify-content-around flex-wrap">
+        <Card
+          card={{
+            title: 'Confirmed',
+            text: '# of Cases',
+            style: 'border-positive'
+          }}
+        >
+          {selectedId === cases.length-1 
+            ? convertToString(cases[selectedId]["Total Cases"])
+            : selectedId === -1 
+              ? convertToString(cases[0]["Total Cases"])
+              : convertToString(cases[selectedId]["Total Cases"] - cases[selectedId+1]["Total Cases"])}
+        </Card>
+        <Card
+          card={{
+            title: 'Recovered',
+            text: '# of Cases',
+            style: 'border-recovered'
+          }}
+        >
+          {selectedId === cases.length-1 
+            ? convertToString(cases[selectedId].Resolved)
+            : selectedId === -1 
+              ? convertToString(cases[0].Resolved)
+              : convertToString(cases[selectedId].Resolved - cases[selectedId+1].Resolved)}
+        </Card>
+        <Card
+          card={{
+            title: 'Deaths',
+            text: '# of Cases',
+            style: 'border-deaths'
+          }}
+        >
+          {selectedId === cases.length-1 
+              ? convertToString(cases[selectedId].Deaths)
               : selectedId === -1 
-                ? cases[0].Resolved
-                : cases[selectedId].Resolved - cases[selectedId+1].Resolved}
-            </h3>
-          </div>
-        </div>
-        <div className="card col-md-3 border-deaths">
-          <div className="card-body text-center">
-            <h5 className="card-title">Deaths</h5>
-            <p className="card-text"># of cases:</p>
-            <h3 className="card-title">
-              {selectedId === cases.length-1 
-              ? cases[selectedId].Deaths 
-              : selectedId === -1 
-                ? cases[0].Deaths
-                : cases[selectedId].Deaths - cases[selectedId+1].Deaths}
-            </h3>
-          </div>
-        </div>
+                ? convertToString(cases[0].Deaths)
+                : convertToString(cases[selectedId].Deaths - cases[selectedId+1].Deaths)}
+        </Card>
+        {selected_date === "Total" && !vaccinations_loading && vaccinations_data.length > 0 && 
+        <Card
+          card={{
+            title: 'Vaccine Doses Administered',
+            text: '# of doses',
+            style: 'border-doses'
+          }}
+        >{vaccinations_data[0].total_doses_administered}</Card>}
+        {selected_date === "Total" && !vaccinations_loading && vaccinations_data.length > 0 && 
+        <Card
+          card={{
+            title: 'Vaccinations Completed',
+            text: '# of vaccinations',
+            style: 'border-vaccines'
+          }}
+        >{vaccinations_data[0].total_vaccinations_completed}</Card>}
       </div>
     </div>
   )
