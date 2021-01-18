@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
       all: 'ed270bb8-340b-41f9-a7c6-e8ef587e6d11',
       testing_locations: 'c60993bb-3988-4648-9be9-398dee480514',
       region: 'd1bfe1ad-6575-4352-8302-09ca81f7ddfc',
-      daily_change_phu: '8a88fe6d-d8fb-41a3-9d04-f0550a44999f',
     }
 
     const options = {

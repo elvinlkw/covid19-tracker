@@ -10,8 +10,6 @@ const initialState = {
   loading: true,
   cases_by_region: null,
   loading_region: true,
-  daily_phu: null,
-  phu_loading: true,
   selected_date: null
 }
 

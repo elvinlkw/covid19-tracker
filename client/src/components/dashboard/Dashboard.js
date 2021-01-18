@@ -18,11 +18,11 @@ const Dashboard = () => {
       dispatch(getAllCases());
     }
 
-    if(loading_region) {
+    // if(loading_region) {
       dispatch(getOntarioCasesByRegion());
-    }
+    // }
 
-  }, [loading, loading_region, dispatch]);
+  }, []);
 
   return (
     <div>

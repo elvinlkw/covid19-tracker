@@ -7,51 +7,45 @@ const CasesByRegion = ({ cases }) => {
   const { selected_date } = useSelector(state => state.ontario);
   
   const [regionData, setRegionData] = useState([]);
-  const [sortedConfig, setSortedConfig] = useState('up');
-  const [sortedField, setSortedField] = useState('_id');
+  const [sortedConfig, setSortedConfig] = useState('down');
+  const [sortedField, setSortedField] = useState('NEW_CASES');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
     // Get Today's Data and sort
-    let currData = [];
-    let prevData = [];
-    currData = cases.filter(day => day.FILE_DATE === selected_date);
+    let currData = cases.filter(day => day.FILE_DATE === selected_date);
     currData = currData.sort((a,b) => a._id - b._id);
 
     // Get Previous Day's Data and sort
-    prevData = cases.filter(day => day.FILE_DATE === moment(selected_date, "MMMM DD, YYYY").subtract(1, 'days').format('MMMM DD, YYYY'));
+    let prevData = cases.filter(day => day.FILE_DATE === moment(selected_date, "MMMM DD, YYYY").subtract(1, 'days').format('MMMM DD, YYYY'));
     prevData = prevData.sort((a,b) => a._id - b._id);
 
-    console.log(currData);
-    console.log(prevData);
-
-    const res = [...currData];
+    let res = [...currData];
 
     if(selected_date !== null) {
       // Build Case
-      for(let i = 0; i < 34; i++) {
-        res[i].RESOLVED_CASES = currData[i].RESOLVED_CASES - prevData[i].RESOLVED_CASES;
-        res[i].DEATHS = currData[i].DEATHS - prevData[i].DEATHS;
-        res[i].ACTIVE_CASES = currData[i].ACTIVE_CASES - prevData[i].ACTIVE_CASES + currData[i].RESOLVED_CASES + currData[i].DEATHS;
-      }
+      res = res.map((day, index) => {
+        const delta_recovered = currData[index].RESOLVED_CASES - prevData[index].RESOLVED_CASES;
+        const delta_deaths = currData[index].DEATHS - prevData[index].DEATHS;
+        return { 
+          ...day, 
+          RESOLVED_CASES: delta_recovered,
+          DEATHS: delta_deaths,
+          NEW_CASES: currData[index].ACTIVE_CASES - prevData[index].ACTIVE_CASES + delta_recovered + delta_deaths
+        }
+      });
     }
+    res.sort((a,b) => b.NEW_CASES - a.NEW_CASES);
     setRegionData(res);
-
     setLoading(false);
-  }, [selected_date, cases]);
+  }, [selected_date]);
 
   const sortTable = (sortParam) => {
-    if(sortParam === sortedField) {
-      if(sortedConfig === 'up') {
-        // @action - Sort by Desc
-        setRegionData(regionData => regionData.sort((a,b) => b[sortParam] - a[sortParam]));
-        setSortedConfig('down');
-      } else {
-        // @action - Sort by Asc
-        setRegionData(regionData => regionData.sort((a,b) => a[sortParam] - b[sortParam]));
-        setSortedConfig('up');
-      }
+    if(sortParam === sortedField && sortedConfig === 'up') {
+      // @action - Sort by Desc
+      setRegionData(regionData => regionData.sort((a,b) => b[sortParam] - a[sortParam]));
+      setSortedConfig('down');      
     } else {
       setRegionData(regionData => regionData.sort((a,b) => a[sortParam] - b[sortParam]));
       setSortedConfig('up');;
@@ -69,8 +63,11 @@ const CasesByRegion = ({ cases }) => {
           <th scope="col" className="text-left" onClick={() => sortTable('_id')} style={tableHeaderStyle}>
             Health Region {sortedField === '_id' && <i className={`fas fa-caret-${sortedConfig}`}></i>}
           </th>
+          <th scope="col" onClick={() => sortTable('NEW_CASES')} style={tableHeaderStyle}>
+            New Confirmed {sortedField === 'NEW_CASES' && <i className={`fas fa-caret-${sortedConfig}`}></i>}
+          </th>
           <th scope="col" onClick={() => sortTable('ACTIVE_CASES')} style={tableHeaderStyle}>
-            Confirmed {sortedField === 'ACTIVE_CASES' && <i className={`fas fa-caret-${sortedConfig}`}></i>}
+            Active {sortedField === 'ACTIVE_CASES' && <i className={`fas fa-caret-${sortedConfig}`}></i>}
           </th>
           <th scope="col" onClick={() => sortTable('RESOLVED_CASES')} style={tableHeaderStyle}>
             Recovered {sortedField === 'RESOLVED_CASES' && <i className={`fas fa-caret-${sortedConfig}`}></i>}
@@ -85,7 +82,8 @@ const CasesByRegion = ({ cases }) => {
         <tr key={region._id} className="text-center">
           <td>{region.PHU_NUM}</td>
           <td className="text-left">{region.PHU_NAME}</td>
-          <td className="text-center">{region.ACTIVE_CASES}</td>
+          <td>{region.NEW_CASES}</td>
+          <td>{region.ACTIVE_CASES}</td>
           <td>{region.RESOLVED_CASES}</td>
           <td>{region.DEATHS}</td>
         </tr>
