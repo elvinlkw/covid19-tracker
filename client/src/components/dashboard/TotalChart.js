@@ -8,8 +8,8 @@ const TotalChart = ({ filter }) => {
   const endIndex = filter === -1 ? cases.length : filter;
   const dates = cases.slice(0, endIndex).map(day => day.date).reverse();
   const confirmed = cases.slice(0, endIndex).map(day => day.total_confirmed).reverse();
-  const width = window.screen.width/2;
-  const height = window.screen.height/2;
+  const width = document.querySelector('.container').offsetWidth/2;
+  const height = window.screen.height/3;
   const data = {
     labels: dates,
     datasets: [

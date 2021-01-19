@@ -45,7 +45,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <>
       {!loading && cases !== null && cases.length > 0 
       ? (<Fragment>
       <CasesSummary cases={cases} />
@@ -65,7 +65,7 @@ const Dashboard = () => {
       {activeTab === 1 && <Charts cases={cases} />}
       </Fragment>)
       : <Spinner />}
-    </div>
+    </>
   )
 }
 
