@@ -2,67 +2,73 @@ import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Spinner from '../layout/Spinner';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getRegionData } from '../../actions/ontario';
 
 const CasesByRegion = ({ cases }) => {
-  const { selected_date } = useSelector(state => state.ontario);
+  const dispatch = useDispatch();
+  const { selected_date, region_data, region_loading } = useSelector(state => state.ontario);
   
   const [regionData, setRegionData] = useState([]);
   const [ogData, setOGData] = useState([]);
   const [sortedConfig, setSortedConfig] = useState('down');
   const [sortedField, setSortedField] = useState('NEW_CASES');
-  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    setLoading(true);
+    if(region_loading || (!region_loading && region_data.length > 0 && selected_date !== region_data[0].FILE_DATE)){
+      // Get Today's Data and sort
+      let select_date = selected_date === "Total" ? cases[0].FILE_DATE : selected_date;
+      let currData = cases.filter(day => day.FILE_DATE === select_date);
+      currData = currData.sort((a,b) => a._id - b._id);
 
-    // Get Today's Data and sort
-    let select_date = selected_date === "Total" ? cases[0].FILE_DATE : selected_date;
-    let currData = cases.filter(day => day.FILE_DATE === select_date);
-    currData = currData.sort((a,b) => a._id - b._id);
+      // Get Previous Day's Data and sort
+      let prevData = cases.filter(day => day.FILE_DATE === moment(select_date, "MMMM DD, YYYY").subtract(1, 'days').format('MMMM DD, YYYY'));
+      prevData = prevData.sort((a,b) => a._id - b._id);
 
-    // Get Previous Day's Data and sort
-    let prevData = cases.filter(day => day.FILE_DATE === moment(select_date, "MMMM DD, YYYY").subtract(1, 'days').format('MMMM DD, YYYY'));
-    prevData = prevData.sort((a,b) => a._id - b._id);
+      let res = [...currData];
 
-    let res = [...currData];
+      if(selected_date === "Total") {
+        res = res.map((day, index) => {
+          return { 
+            ...day, 
+            RESOLVED_CASES: currData[index].RESOLVED_CASES,
+            DEATHS: currData[index].DEATHS,
+            TOTAL_CASES: currData[index].ACTIVE_CASES + currData[index].RESOLVED_CASES + currData[index].DEATHS
+          }
+        });
+      } else {
+        res = res.map((day, index) => {
+          const delta_recovered = currData[index].RESOLVED_CASES - prevData[index].RESOLVED_CASES;
+          const delta_deaths = currData[index].DEATHS - prevData[index].DEATHS;
+          return { 
+            ...day, 
+            RESOLVED_CASES: delta_recovered,
+            DEATHS: delta_deaths,
+            NEW_CASES: currData[index].ACTIVE_CASES - prevData[index].ACTIVE_CASES + delta_recovered + delta_deaths,
+            TOTAL_CASES: currData[index].ACTIVE_CASES + currData[index].RESOLVED_CASES + currData[index].DEATHS
+          }
+        });
+      }
+      
+      // Sort according to previous sort
+      if(sortedConfig === 'up') {
+        res.sort((a,b) => a[sortedField] - b[sortedField]);
+      } else {
+        res.sort((a,b) => b[sortedField] - a[sortedField]);
+      }
 
-    if(selected_date === "Total") {
-      res = res.map((day, index) => {
-        return { 
-          ...day, 
-          RESOLVED_CASES: currData[index].RESOLVED_CASES,
-          DEATHS: currData[index].DEATHS,
-          TOTAL_CASES: currData[index].ACTIVE_CASES + currData[index].RESOLVED_CASES + currData[index].DEATHS
-        }
-      });
+      setRegionData(res);
+      setOGData(res);
+      // Call filter function if there's a filter when selected date is changed
+      if(filter.length !== 0) handleFilterChange('', res);
+      dispatch(getRegionData(res));
     } else {
-      res = res.map((day, index) => {
-        const delta_recovered = currData[index].RESOLVED_CASES - prevData[index].RESOLVED_CASES;
-        const delta_deaths = currData[index].DEATHS - prevData[index].DEATHS;
-        return { 
-          ...day, 
-          RESOLVED_CASES: delta_recovered,
-          DEATHS: delta_deaths,
-          NEW_CASES: currData[index].ACTIVE_CASES - prevData[index].ACTIVE_CASES + delta_recovered + delta_deaths,
-          TOTAL_CASES: currData[index].ACTIVE_CASES + currData[index].RESOLVED_CASES + currData[index].DEATHS
-        }
-      });
+      setRegionData(region_data);
+      setOGData(region_data);
+      // Call filter function if there's a filter when selected date is changed
+      if(filter.length !== 0) handleFilterChange('', region_data);
     }
-    
-    // Sort according to previous sort
-    if(sortedConfig === 'up') {
-      res.sort((a,b) => a[sortedField] - b[sortedField]);
-    } else {
-      res.sort((a,b) => b[sortedField] - a[sortedField]);
-    }
-
-    setRegionData(res);
-    setOGData(res);
-    // Call filter function if there's a filter when selected date is changed
-    if(filter.length !== 0) handleFilterChange('', res);
-    setLoading(false);
   }, [selected_date, cases, sortedConfig, sortedField]);
 
   const sortTable = (sortParam) => {
@@ -98,10 +104,10 @@ const CasesByRegion = ({ cases }) => {
     setRegionData(data);
   }
 
-  return loading ? (<Spinner />) : (
+  return region_loading ? (<Spinner />) : (
     <Fragment>
       <h3>Cases by Health Regions - {selected_date}</h3>
-      {!loading && regionData.length === 0 && filter.length === 0
+      {!region_loading && regionData.length === 0 && filter.length === 0
         ? (<p><em>No Data Available for that period</em></p>) 
         : (<Fragment>
         <div className="input-group col-md-3 filter-table">

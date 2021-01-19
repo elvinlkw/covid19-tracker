@@ -60,7 +60,7 @@ const Dashboard = () => {
         ))}
       </ul>
       
-      {activeTab === 0 && !loading_region && cases_by_region !== null && cases_by_region.length  &&
+      {activeTab === 0 && !loading_region && cases_by_region !== null && cases_by_region.length > 0 && 
       (<CasesByRegion cases={cases_by_region} />)}
       {activeTab === 1 && <Charts cases={cases} />}
       </Fragment>)

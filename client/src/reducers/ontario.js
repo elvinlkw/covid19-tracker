@@ -2,6 +2,7 @@ import {
   GET_ALL_CASES,
   GET_CASES_BY_REGION,
   GET_VACCINATIONS,
+  GET_REGION_DATA,
   SET_SELECTED_DATE,
   CLEAR_SELECTED_DATE
 } from '../actions/types';
@@ -13,7 +14,9 @@ const initialState = {
   loading_region: true,
   selected_date: null,
   vaccinations_data: null,
-  vaccinations_loading: true
+  vaccinations_loading: true,
+  region_data: null,
+  region_loading: true
 }
 
 const ontarioReducer = (state = initialState, action) => {
@@ -30,6 +33,12 @@ const ontarioReducer = (state = initialState, action) => {
         ...state,
         cases_by_region: payload,
         loading_region: false
+      }
+    case GET_REGION_DATA:
+      return {
+        ...state,
+        region_data: payload,
+        region_loading: false
       }
     case GET_VACCINATIONS:
       return {

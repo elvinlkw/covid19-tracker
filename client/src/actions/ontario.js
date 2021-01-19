@@ -4,6 +4,7 @@ import {
   GET_ALL_CASES,
   GET_CASES_BY_REGION,
   GET_VACCINATIONS,
+  GET_REGION_DATA,
   SET_SELECTED_DATE,
   CLEAR_SELECTED_DATE,
 } from './types';
@@ -134,6 +135,13 @@ export const setSelectedDate = date => dispatch => {
     type: SET_SELECTED_DATE,
     payload: date
   });
+}
+
+export const getRegionData = data => dispatch => {
+  dispatch({
+    type: GET_REGION_DATA,
+    payload: data
+  })
 }
 
 // Clear Selected Date
