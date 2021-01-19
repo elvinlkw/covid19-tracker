@@ -8,9 +8,11 @@ const CasesByRegion = ({ cases }) => {
   const { selected_date } = useSelector(state => state.ontario);
   
   const [regionData, setRegionData] = useState([]);
+  const [ogData, setOGData] = useState([]);
   const [sortedConfig, setSortedConfig] = useState('down');
   const [sortedField, setSortedField] = useState('NEW_CASES');
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -57,6 +59,7 @@ const CasesByRegion = ({ cases }) => {
     }
 
     setRegionData(res);
+    setOGData(res);
     setLoading(false);
   }, [selected_date, cases, sortedConfig, sortedField]);
 
@@ -73,12 +76,29 @@ const CasesByRegion = ({ cases }) => {
     setSortedField(sortParam);
   }
 
+  const handleFilterChange = e => {
+    let data = [...ogData];
+    data = data.filter(day => (
+      day.PHU_NAME.toLowerCase().includes(e.target.value.toLowerCase()) ||
+      day.PHU_NUM.toString().includes(e.target.value)
+    ));
+    setFilter(e.target.value);
+    setRegionData(data);
+  }
+
   return loading ? (<Spinner />) : (
     <Fragment>
       <h3>Cases by Health Regions - {selected_date}</h3>
-      {!loading && regionData.length === 0 
+      {!loading && regionData.length === 0 && filter.length === 0
         ? (<p><em>No Data Available for that period</em></p>) 
-        : (<table className="table">
+        : (<Fragment>
+        <div className="input-group col-md-3 filter-table">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="filter-table"><i className="fas fa-search"></i></span>
+          </div>
+          <input type="text" className="form-control" aria-describedby="filter-table" value={filter} onChange={handleFilterChange} />
+        </div>
+        <table className="table">
         <thead>
           <tr className="text-center table-info">
             <th scope="col" onClick={() => sortTable('PHU_NUM')} style={tableHeaderStyle}>
@@ -125,7 +145,8 @@ const CasesByRegion = ({ cases }) => {
           </tr>
           ))}
         </tbody>
-      </table>)}
+      </table>
+      </Fragment>)}
     </Fragment>
   )
 }

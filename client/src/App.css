@@ -35,9 +35,14 @@ body {
 }
 
 .table {
-  margin-top: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
 }
 
 .card {
   box-shadow: 0 0 10px rgba(0,0,0,.2);
+}
+
+.filter-table {
+  padding-left: 0;
 }

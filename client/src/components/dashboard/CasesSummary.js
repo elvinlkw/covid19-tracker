@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './Card';
@@ -78,6 +78,14 @@ const CasesSummary = ({ cases }) => {
                 ? convertToString(cases[0].Deaths)
                 : convertToString(cases[selectedId].Deaths - cases[selectedId+1].Deaths)}
         </Card>
+        {selected_date !== "Total" && 
+        <Card
+          card={{
+            title: 'Tests Completed',
+            text: '# of tests',
+            style: 'border-doses'
+          }}
+        >{convertToString(cases[selectedId]["Total tests completed in the last day"])}</Card>}
         {selected_date === "Total" && !vaccinations_loading && vaccinations_data.length > 0 && 
         <Card
           card={{
