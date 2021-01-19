@@ -21,10 +21,50 @@ export const getAllCases = () => async dispatch => {
     cases = cases.map(day => ({ ...day, "Reported Date": new moment(day["Reported Date"]) }));
     // Sort Descending First
     cases = cases.sort((a,b) => (b["Reported Date"] - a["Reported Date"]));
-    cases = cases.map(day => ({ ...day, "Reported Date": moment(day["Reported Date"]).format('MMMM DD, YYYY') }));
+    
+    // Create new result
+    let response = [];
+    for(let i = 0; i < cases.length; i++) {
+      // Variable definition
+      let resolved_today, deaths_today, confirmed_today, total_resolved, total_confirmed, total_deaths;
+      let date = moment(cases[i]["Reported Date"], "YYYY-MM-DD").format('MMMM DD, YYYY');
+      let percent_positivity = cases[i]["Percent positive tests in last day"];
+      let tests_completed = cases[i]["Total tests completed in the last day"] === null ? 0 : cases[i]["Total tests completed in the last day"];
+      let id = cases[i]._id;
+
+      if(i !== cases.length - 1) {
+        total_resolved = cases[i].Resolved === null ? 0 : cases[i].Resolved;
+        total_deaths = cases[i].Deaths === null ? 0 : cases[i].Deaths;
+        total_confirmed = cases[i]["Total Cases"] === null ? 0 : cases[i]["Total Cases"];
+        resolved_today = total_resolved - cases[i+1].Resolved;
+        deaths_today = total_deaths - cases[i+1].Deaths;
+        confirmed_today = total_confirmed - cases[i+1]["Total Cases"];
+      } else {
+        total_resolved = cases[i].Resolved === null ? 0 : cases[i].Resolved;
+        total_deaths = cases[i].Deaths === null ? 0 : cases[i].Deaths;
+        total_confirmed = cases[i]["Total Cases"] === null ? 0 : cases[i]["Total Cases"];
+        resolved_today = total_resolved;
+        deaths_today = total_deaths;
+        confirmed_today = total_confirmed;
+      }
+      const newObj = {
+        resolved_today,
+        deaths_today,
+        confirmed_today,
+        total_resolved,
+        total_deaths,
+        total_confirmed,
+        date,
+        percent_positivity,
+        tests_completed,
+        id
+      }
+      response.push(newObj);
+    }
+
     dispatch({
       type: GET_ALL_CASES,
-      payload: cases
+      payload: response
     });
   } catch (error) {
     console.log(error);

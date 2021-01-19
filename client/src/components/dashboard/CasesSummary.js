@@ -11,14 +11,14 @@ const CasesSummary = ({ cases }) => {
 
   useEffect(() => {
     dispatch(getVaccinations());
-    dispatch(setSelectedDate(cases[0]["Reported Date"]));
+    dispatch(setSelectedDate(cases[0].date));
   }, [dispatch, cases]);
 
   const handleChange = e => {
     const index = e.target.value;
     setSelectedId(parseInt(index));
     if(parseInt(index) !== -1) {
-      dispatch(setSelectedDate(cases[index]["Reported Date"]));
+      dispatch(setSelectedDate(cases[index].date));
     } else dispatch(setSelectedDate("Total"));
   }
 
@@ -34,7 +34,7 @@ const CasesSummary = ({ cases }) => {
           <select className="form-control" value={selectedId} onChange={handleChange} >
             <option value={-1}>Total Cases</option>
             {cases.map((day, index) => (
-            <option key={day._id} value={index}>{day["Reported Date"]}</option>))}
+            <option key={day.id} value={index}>{day.date}</option>))}
           </select>
         </div>
       </div>
@@ -46,11 +46,9 @@ const CasesSummary = ({ cases }) => {
             style: 'border-positive'
           }}
         >
-          {selectedId === cases.length-1 
-            ? cases[selectedId]["Total Cases"] === null ? 0 : convertToString(cases[selectedId]["Total Cases"])
-            : selectedId === -1 
-              ? convertToString(cases[0]["Total Cases"])
-              : convertToString(cases[selectedId]["Total Cases"] - cases[selectedId+1]["Total Cases"])}
+          {selectedId === -1
+          ? convertToString(cases[0].total_confirmed)
+          : convertToString(cases[selectedId].confirmed_today)}
         </Card>
         <Card
           card={{
@@ -59,11 +57,9 @@ const CasesSummary = ({ cases }) => {
             style: 'border-recovered'
           }}
         >
-          {selectedId === cases.length-1 
-            ? cases[selectedId].Resolved === null ? 0 : convertToString(cases[selectedId].Resolved)
-            : selectedId === -1 
-              ? convertToString(cases[0].Resolved)
-              : convertToString(cases[selectedId].Resolved - cases[selectedId+1].Resolved)}
+          {selectedId === -1
+          ? convertToString(cases[0].total_resolved)
+          : convertToString(cases[selectedId].resolved_today)}
         </Card>
         <Card
           card={{
@@ -72,11 +68,9 @@ const CasesSummary = ({ cases }) => {
             style: 'border-deaths'
           }}
         >
-          {selectedId === cases.length-1 
-              ? cases[selectedId].Resolved === null ? 0 : convertToString(cases[selectedId].Resolved)
-              : selectedId === -1 
-                ? convertToString(cases[0].Deaths)
-                : convertToString(cases[selectedId].Deaths - cases[selectedId+1].Deaths)}
+          {selectedId === -1
+          ? convertToString(cases[0].total_deaths)
+          : convertToString(cases[selectedId].deaths_today)}
         </Card>
         {selected_date !== "Total" && 
         <Card
@@ -85,7 +79,7 @@ const CasesSummary = ({ cases }) => {
             text: '# of tests',
             style: 'border-doses'
           }}
-        >{convertToString(cases[selectedId]["Total tests completed in the last day"])}</Card>}
+        >{convertToString(cases[selectedId].tests_completed)}</Card>}
         {selected_date === "Total" && !vaccinations_loading && vaccinations_data.length > 0 && 
         <Card
           card={{

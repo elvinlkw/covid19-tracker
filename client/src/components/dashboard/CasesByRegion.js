@@ -78,6 +78,7 @@ const CasesByRegion = ({ cases }) => {
 
   const handleFilterChange = e => {
     let data = [...ogData];
+    // Filter through Health Regions and by their Health Unit Number
     data = data.filter(day => (
       day.PHU_NAME.toLowerCase().includes(e.target.value.toLowerCase()) ||
       day.PHU_NUM.toString().includes(e.target.value)
@@ -98,7 +99,7 @@ const CasesByRegion = ({ cases }) => {
           </div>
           <input type="text" className="form-control" aria-describedby="filter-table" value={filter} onChange={handleFilterChange} />
         </div>
-        <table className="table">
+        <table className={`table ${filter.length > 0 && 'filtered'}`}>
         <thead>
           <tr className="text-center table-info">
             <th scope="col" onClick={() => sortTable('PHU_NUM')} style={tableHeaderStyle}>

@@ -13,6 +13,26 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+/* Input fields */
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+    border-color: none;
+}
+
 /* Global Variables */
 .border-positive {
   border-bottom: 8px solid var(--primary-blue);
@@ -34,13 +54,19 @@ body {
   border-bottom: 8px solid var(--primary-purple);
 }
 
+/* Cases Summary */
+.card {
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+}
+
+/* Cases By Region CSS */
 .table {
   margin-top: 1rem;
   margin-bottom: 5rem;
 }
 
-.card {
-  box-shadow: 0 0 10px rgba(0,0,0,.2);
+.filtered {
+  margin-bottom: 15rem;
 }
 
 .filter-table {
