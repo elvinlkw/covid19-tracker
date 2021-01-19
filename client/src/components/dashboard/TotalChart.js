@@ -36,7 +36,7 @@ const TotalChart = ({ filter }) => {
   }
   return (
     <div>
-      <h3 className="text-center">Daily Cases</h3>
+      <h3 className="text-center">Total Cases</h3>
       <Line data={data} options={options} width={width} height={height} />
     </div>
   )

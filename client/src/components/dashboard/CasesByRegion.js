@@ -60,6 +60,8 @@ const CasesByRegion = ({ cases }) => {
 
     setRegionData(res);
     setOGData(res);
+    // Call filter function if there's a filter when selected date is changed
+    if(filter.length !== 0) handleFilterChange('', res);
     setLoading(false);
   }, [selected_date, cases, sortedConfig, sortedField]);
 
@@ -76,14 +78,23 @@ const CasesByRegion = ({ cases }) => {
     setSortedField(sortParam);
   }
 
-  const handleFilterChange = e => {
-    let data = [...ogData];
+  const handleFilterChange = (e, list=null) => {
+    let data = [];
+    let input = '';
+    if(list === null){
+      data = [...ogData];
+      input = e.target.value;
+    } else {
+      data = list;
+      input = filter;
+    }
+    
     // Filter through Health Regions and by their Health Unit Number
     data = data.filter(day => (
-      day.PHU_NAME.toLowerCase().includes(e.target.value.toLowerCase()) ||
-      day.PHU_NUM.toString().includes(e.target.value)
+      day.PHU_NAME.toLowerCase().includes(input.toLowerCase()) ||
+      day.PHU_NUM.toString().includes(input)
     ));
-    setFilter(e.target.value);
+    setFilter(input);
     setRegionData(data);
   }
 
