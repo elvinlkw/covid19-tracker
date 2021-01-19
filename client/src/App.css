@@ -2,6 +2,7 @@
 
 :root {
   --primary-blue: #1fa1e7;
+  --bright-blue: #007bff;
   --primary-green: #369e1c;
   --very-green: #3ce612;
   --primary-red: #f03a3a;
@@ -31,6 +32,17 @@ label:focus,
     -webkit-appearance:none;
     box-shadow: none !important;
     border-color: none;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+/* bootstrap modifications */
+.nav-tabs .nav-link.active {
+  border-top: 2px var(--bright-blue) solid !important;
+  color: var(--bright-blue) !important;
 }
 
 /* Global Variables */
@@ -71,4 +83,46 @@ label:focus,
 
 .filter-table {
   padding-left: 0;
+}
+
+/* Charts */
+.charts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.charts > div {
+  flex-basis: 50%;
+}
+
+.charts canvas {
+  width: 50%;
+}
+
+.tabs {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.tabs span {
+  font-size: 14px;
+}
+
+.tabs li {
+  list-style-type: none;
+  font-size: 14px;
+  padding: 0 0.25rem;
+  cursor: pointer;
+  border-right: 2px #dee2e6 solid;
+}
+
+.tabs li:hover {
+  opacity: 0.7;
+}
+
+.tabs li.tabs-active {
+  text-decoration: underline;
+  color: var(--bright-blue);
 }
