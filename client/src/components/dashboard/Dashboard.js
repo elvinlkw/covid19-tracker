@@ -37,7 +37,7 @@ const Dashboard = () => {
     if(loading) {
       dispatch(getAllCases());
     }
-  }, [dispatch, loading, loading_region]);
+  }, [dispatch, loading_region]);
 
   const handleTab = (e, tabIndex) => {
     e.preventDefault();
