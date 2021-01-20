@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
-import moment from 'moment';
 import TableHeader from './TableHeader';
 
 const CasesByRegion = () => {
@@ -16,7 +15,8 @@ const CasesByRegion = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    const select_date = selected_date === "Total" ? moment().format('MMMM DD, YYYY') : selected_date;
+    const select_date = selected_date === "Total" ? cases[0].date : selected_date;
+    console.log(select_date);
     const currData = cases.filter(day => day.date === select_date);
     // sort by descing on confirmed today;
     currData.sort((a,b) => b.confirmed_today - a.confirmed_today);
