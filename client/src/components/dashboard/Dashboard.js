@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CasesSummary from './CasesSummary';
 import CasesByRegion from './CasesByRegion';
-import Charts from './Charts';
+import Charts from './charts/Charts';
 import Spinner from '../layout/Spinner';
 import { getOntarioCasesByRegion, getAllCases } from '../../actions/ontario';
 

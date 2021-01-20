@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import DailyChart from './DailyChart';
 import TotalChart from './TotalChart';
+import PieChart from './PieChart';
 
 const Charts = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -35,6 +36,9 @@ const Charts = () => {
       <div className="charts mb-5">
         <DailyChart filter={TABS[activeTab].value} />
         <TotalChart filter={TABS[activeTab].value} />
+      </div>
+      <div>
+        <PieChart />
       </div>
     </Fragment>
   )

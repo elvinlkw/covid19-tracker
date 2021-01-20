@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
+// import { Link } from 'react-router-dom';
 import moment from 'moment';
 import TableHeader from './TableHeader';
 
@@ -86,7 +87,11 @@ const CasesByRegion = () => {
           {displayedData.map(region => (
           <tr key={region.id} className="text-center">
             <td>{region.health_unit_num}</td>
-            <td className="text-left">{region.health_unit_name}</td>
+            <td className="text-left">
+              {/* <Link to={`${region.health_unit_name.toLowerCase().replace(/[,. ]/g, '_')}`}> */}
+                {region.health_unit_name}
+              {/* </Link> */}
+            </td>
             {selected_date !== "Total" && 
             <Fragment>
               <td>{region.confirmed_today}</td>
