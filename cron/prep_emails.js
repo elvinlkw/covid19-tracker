@@ -2,6 +2,7 @@ const moment = require('moment');
 const request = require('request');
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
+const User = require('../models/User');
 
 async function getTodaysData() {
   const options = {
@@ -34,11 +35,16 @@ async function getTodaysData() {
 
 async function checkEmailReady() {
   return await new Promise(resolve => {
+    console.log('Cron Started');
     const interval = setInterval(async () => {
       const obj = await getTodaysData();
-      if (obj.date === moment().format('YYYY-MM-DD')) {
+      if (obj.date === moment().subtract(1, "days").format('YYYY-MM-DD')) {
         console.log(obj);
         const { date, confirmed, deaths, tests_completed, percent_positive } = obj;
+        // Fetch list of users
+        const users = await User.find();
+
+        const emailList = users.map(user => user.email);
 
         // Send Email
         // create reusable transporter object using the default SMTP transport
@@ -54,6 +60,7 @@ async function checkEmailReady() {
 
         const msg = {
           from: '"No-Reply" <elvinlkw@hotmail.com>', // sender address
+          to: emailList,
           bcc: "elvinlkw@hotmail.com, elvinlkw4@gmail.com", // list of receivers
           subject: `Daily Covid19 Cases Update - ${date}`, // Subject line
           html: `
@@ -78,7 +85,7 @@ async function checkEmailReady() {
         // Preview only available when sending through an Ethereal account
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-
+        console.log('Cron Ended');
         resolve();
         clearInterval(interval);
       }

@@ -21,7 +21,7 @@ app.use('/api/ontario/subscription', ontarioSubsRoute);
 // Scheduler
 const startCron = require('./cron/prep_emails');
 const startCron2 = require('./cron/prep_emails2');
-startCron('1 23 * * *');
+startCron('20 0 * * *');
 startCron2('1 4 * * *');
 
 // Serve static assets in production
