@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
-const app = express();
 
+const app = express();
 const PORT = process.env.PORT || 5000;
 
 // middleware
@@ -11,6 +11,13 @@ app.use(express.json());
 const ontarioRoute = require('./routes/ontario');
 
 app.use('/api/ontario', ontarioRoute);
+
+
+
+// Scheduler
+const startCron = require('./cron/prep_emails');
+startCron('51 19 * * *');
+
 
 // Serve static assets in production
 if(process.env.NODE_ENV === 'production') {
