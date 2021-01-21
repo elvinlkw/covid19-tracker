@@ -1,22 +1,28 @@
 const express = require('express');
 require('dotenv').config();
+const connectDB = require('./config/db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Connect to DB
+connectDB();
 
 // middleware
 app.use(express.json());
 
 // Routes
-const ontarioRoute = require('./routes/ontario');
+const ontarioCasesRoute = require('./routes/ontario/cases');
+const ontarioSubsRoute = require('./routes/ontario/subscribe');
 
-app.use('/api/ontario', ontarioRoute);
+app.use('/api/ontario', ontarioCasesRoute);
+app.use('/api/ontario/subscription', ontarioSubsRoute);
 
 // Scheduler
 const startCron = require('./cron/prep_emails');
-const startCron2 = require('./cron/prep_emails2');
-startCron('30 0 * * *');
-startCron2('30 5 * * *');
+// const startCron2 = require('./cron/prep_emails2');
+startCron('00 10 * * *');
+// startCron2('30 5 * * *');
 
 // Serve static assets in production
 if(process.env.NODE_ENV === 'production') {
