@@ -43,18 +43,18 @@ async function checkEmailReady() {
         // Send Email
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
-          host: "smtp.mandrillapp.com",
+          host: "smtp.ethereal.email",
           port: 587,
           secure: false, // true for 465, false for other ports
           auth: {
-            user: 'elvinlkw@hotmail.com', // generated ethereal user
-            pass: '313cc6a1d8749d6be61809fb8159d2ab-us7', // generated ethereal password
+            user: 'frances87@ethereal.email', // generated ethereal user
+            pass: 'k8NtCGqErzDMjfRayH', // generated ethereal password
           },
         });
 
         const msg = {
           from: '"No-Reply" <elvinlkw@hotmail.com>', // sender address
-          to: "elvinlkw@hotmail.com, elvinlkw4@gmail.com", // list of receivers
+          bcc: "elvinlkw@hotmail.com, elvinlkw4@gmail.com", // list of receivers
           subject: `Daily Covid19 Cases Update - ${date}`, // Subject line
           html: `
             <h1>Daily Covid19 Update</h1>
@@ -62,9 +62,8 @@ async function checkEmailReady() {
             <p>The number of <strong>deaths</strong> today in ON is: ${deaths} cases</p>
             <p>The number of <strong>tests completed</strong> today in ON is: ${tests_completed} tests</p>
             <p>The <strong>percentage positivity</strong> in ON today is: ${percent_positive} %</p>
-            <p>Production</p>
             <div style="display:flex;justify-content:center;align-items:center;margin-top:2rem">
-              <span style="margin-right:0.25rem">To Unsubscribe</span><a href="https://elikamwa-covid19-tracker.herokuapp.com/unsubscribe" target="_target">Click Here</a>
+              <span style="margin-right:0.25rem">To Unsubscribe</span><a href="https://elikamwa-covid19-tracker.herokuapp.com/unsubscribe" target="_blank">Click Here</a>
             </div>
           `, // html body
         }
