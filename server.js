@@ -14,7 +14,7 @@ app.use('/api/ontario', ontarioRoute);
 
 // Scheduler
 const startCron = require('./cron/prep_emails');
-startCron('10 20 * * *');
+startCron('31 21 * * *');
 
 // Serve static assets in production
 if(process.env.NODE_ENV === 'production') {
