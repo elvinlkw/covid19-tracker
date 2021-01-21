@@ -20,11 +20,9 @@ const App = () => {
         <Navbar />
         <div className="container">
           <Alert />
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route exact path="/unsubscribe" component={Unsubscribe} />
-            <Route exact path="/subscribe" component={Subscribe} />
-          </Switch>
+          <Route exact path="/" component={Dashboard} />
+          <Route path="/unsubscribe" component={Unsubscribe} />
+          <Route path="/subscribe" component={Subscribe} />
         </div>
       </Router>
     </Provider>
