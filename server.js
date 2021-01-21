@@ -12,12 +12,9 @@ const ontarioRoute = require('./routes/ontario');
 
 app.use('/api/ontario', ontarioRoute);
 
-
-
 // Scheduler
 const startCron = require('./cron/prep_emails');
-startCron('51 19 * * *');
-
+startCron('00 20 * * *');
 
 // Serve static assets in production
 if(process.env.NODE_ENV === 'production') {
