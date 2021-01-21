@@ -62,7 +62,7 @@ async function checkEmailReady() {
             <p>The number of <strong>deaths</strong> today in ON is: ${deaths} cases</p>
             <p>The number of <strong>tests completed</strong> today in ON is: ${tests_completed} tests</p>
             <p>The <strong>percentage positivity</strong> in ON today is: ${percent_positive} %</p>
-            <p>Production</p>
+            <p>Production2</>
             <div style="display:flex;justify-content:center;align-items:center;margin-top:2rem">
               <span style="margin-right:0.25rem">To Unsubscribe</span><a href="https://elikamwa-covid19-tracker.herokuapp.com/unsubscribe" target="_blank">Click Here</a>
             </div>
