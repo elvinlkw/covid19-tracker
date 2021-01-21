@@ -18,7 +18,7 @@ export const subscribe = ( email ) => async dispatch => {
   }
 }
 
-export const unsubscribe = (email, history) => async dispatch => {
+export const unsubscribe = (email) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'

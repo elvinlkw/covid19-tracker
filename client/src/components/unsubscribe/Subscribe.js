@@ -15,8 +15,8 @@ const Subscribe = () => {
     }}>
       <div className="">
         <h3>Subscribe for Daily Updates</h3>
-        <label htmlFor="unsubscribe-input">Email address</label>
-        <input type="email" autoComplete="off" className="" id="unsubscribe-input" aria-describedby="emailHelp" value={email} onChange={e => setEmail(e.target.value)} />
+        <label htmlFor="input">Email address</label>
+        <input type="email" autoComplete="off" id="input" aria-describedby="emailHelp" value={email} onChange={e => setEmail(e.target.value)} />
         <div>
           <button type="button" className="btn btn-danger" style={{marginRight: '0.5rem'}} onClick={() => history.goBack()}>Cancel</button>
           <button type="submit" className="btn btn-primary">Submit</button>

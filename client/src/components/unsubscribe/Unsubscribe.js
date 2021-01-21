@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { unsubscribe } from '../../actions/ontario/subscribe';
 import './style.css';
+import { unsubscribe } from '../../actions/ontario/subscribe';
 
 const Unsubscribe = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Unsubscribe = () => {
       dispatch(unsubscribe(email));
     }}>
       <div className="">
-        <h3>Unsubscribe</h3>
+        <h3>Subscribe for Daily Updates</h3>
         <label htmlFor="unsubscribe-input">Email address</label>
         <input type="email" autoComplete="off" id="unsubscribe-input" aria-describedby="emailHelp" value={email} onChange={e => setEmail(e.target.value)} />
         <button type="submit" className="btn btn-primary">Submit</button>
