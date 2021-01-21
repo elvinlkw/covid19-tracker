@@ -45,18 +45,27 @@ async function checkEmailReady() {
         const users = await User.find();
 
         const emailList = users.map(user => user.email);
+        console.log(emailList)
 
         // Send Email
         // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-          host: "smtp.ethereal.email",
-          port: 587,
-          secure: false, // true for 465, false for other ports
+        // let transporter = nodemailer.createTransport({
+        //   host: "smtp.ethereal.email",
+        //   port: 587,
+        //   secure: false, // true for 465, false for other ports
+        //   auth: {
+        //     user: 'frances87@ethereal.email', // generated ethereal user
+        //     pass: 'k8NtCGqErzDMjfRayH', // generated ethereal password
+        //   },
+        // });
+
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
           auth: {
-            user: 'frances87@ethereal.email', // generated ethereal user
-            pass: 'k8NtCGqErzDMjfRayH', // generated ethereal password
-          },
-        });
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD
+          }
+        })
 
         const msg = {
           from: '"No-Reply" <elvinlkw@hotmail.com>', // sender address
