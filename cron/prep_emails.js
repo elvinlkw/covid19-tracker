@@ -43,17 +43,17 @@ async function checkEmailReady() {
         // Send Email
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
-          host: "smtp.mandrillapp.com",
+          host: "smtp.ethereal.email",
           port: 587,
           secure: false, // true for 465, false for other ports
           auth: {
-            user: 'elvinlkw@hotmail.com', // generated ethereal user
-            pass: '313cc6a1d8749d6be61809fb8159d2ab-us7', // generated ethereal password
+            user: 'laney.okon43@ethereal.email', // generated ethereal user
+            pass: 'gyMw3ypkAEQp8uv8rw', // generated ethereal password
           },
         });
 
         const msg = {
-          from: '"No-Reply" <elvinlkw@hotmail.com>', // sender address
+          from: '"No Reply" <elvinlkw@hotmail.com>', // sender address
           to: "elvinlkw@hotmail.com, elvinlkw4@gmail.com", // list of receivers
           subject: `Daily Covid19 Cases Update - ${date}`, // Subject line
           html: `
@@ -78,8 +78,6 @@ async function checkEmailReady() {
         // Preview only available when sending through an Ethereal account
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-
-
 
         resolve();
         clearInterval(interval);
