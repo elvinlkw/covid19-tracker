@@ -36,7 +36,7 @@ router.post('/', [
     let user = await User.findOne({ email: email });
     
     if(user) {
-      return res.status(400).json({ errros: [{ msg: 'This email is already subscribed' }] });
+      return res.status(400).json({ errors: [{ msg: 'This email is already subscribed' }] });
     }
 
     user = new User({ email });
@@ -52,7 +52,8 @@ router.post('/', [
 // @desc    Remove a subscriber
 // @access  Public
 router.delete('/', [
-  check('email', 'You need to enter a valid email').isEmail()
+  check('email', 'You need to enter a valid email').isEmail(),
+  check('email', 'Email is a required field').not().isEmpty()
 ], async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -67,9 +68,10 @@ router.delete('/', [
 
     const { email } = req.body;
     let user = await User.findOne({ email: email });
+    console.log(user);
     
     if(!user) {
-      return res.status(400).json({ errros: [{ msg: 'This email is not a subscriber' }] });
+      return res.status(400).json({ errors: [{ msg: 'This email is not a subscriber' }] });
     }
 
     await user.remove();

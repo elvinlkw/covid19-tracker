@@ -12,8 +12,11 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
-              <NavLink className="nav-link" to="/">Dashboard <span className="sr-only">(current)</span></NavLink>
+            <li className="nav-item">
+              <NavLink className="nav-link" exact to="/">Dashboard <span className="sr-only">(current)</span></NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/subscribe">Subscribe <span className="sr-only">(current)</span></NavLink>
             </li>
           </ul>
         </div>

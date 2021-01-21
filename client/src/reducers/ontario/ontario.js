@@ -5,7 +5,7 @@ import {
   GET_REGION_DATA,
   SET_SELECTED_DATE,
   CLEAR_SELECTED_DATE
-} from '../actions/types';
+} from '../../actions/types';
 
 const initialState = {
   cases: null,

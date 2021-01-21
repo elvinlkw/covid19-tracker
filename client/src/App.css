@@ -45,6 +45,10 @@ a {
   color: var(--bright-blue) !important;
 }
 
+.alert {
+  margin-top: 1rem;
+}
+
 /* Global Variables */
 .border-positive {
   border-bottom: 8px solid var(--primary-blue);
@@ -126,3 +130,4 @@ a {
   text-decoration: underline;
   color: var(--bright-blue);
 }
+
