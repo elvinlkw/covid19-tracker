@@ -79,8 +79,6 @@ async function checkEmailReady() {
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 
-
-
         resolve();
         clearInterval(interval);
       }
