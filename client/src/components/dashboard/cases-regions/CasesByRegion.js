@@ -18,8 +18,6 @@ const CasesByRegion = () => {
   useEffect(() => {
     const select_date = selected_date === "Total" ? cases[0].date : selected_date;
     let currData = cases.filter(day => day.date === select_date);
-    // sort by descing on confirmed today;
-    currData.sort((a,b) => b.confirmed_today - a.confirmed_today);
 
     // Check whether a regions is saved or not
     currData = currData.map(region => {
@@ -31,6 +29,10 @@ const CasesByRegion = () => {
     });
 
     setFullData([...currData]);
+
+    if(sortedConfig === 'up') {
+      currData.sort((a,b) => a[sortedField] - b[sortedField]);
+    } else currData.sort((a,b) => b[sortedField] - a[sortedField]);
 
     if(filter.length > 0) {
       const data = currData.filter(day => (
