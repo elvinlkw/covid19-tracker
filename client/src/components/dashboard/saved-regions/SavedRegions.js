@@ -56,11 +56,15 @@ const SavedRegions = () => {
             <Fragment>
               <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='confirmed_today' name='New Confirmed' />
               <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='active_today' name='Active' />
+              <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='resolved_today' name='Recovered' />
+              <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='deaths_today' name='Deaths' />
             </Fragment>}
             {selected_date === "Total" &&
-            <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_confirmed' name='Total Confirmed' />}
-            <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_resolved' name='Recovered' />
-            <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_deaths' name='Deaths' />
+            <Fragment>
+              <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_confirmed' name='Total Confirmed' />
+              <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_resolved' name='Recovered' />
+              <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_deaths' name='Deaths' />
+            </Fragment>}
           </tr>
         </thead>
         <tbody>
