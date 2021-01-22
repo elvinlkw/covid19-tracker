@@ -46,7 +46,7 @@ const SavedRegions = () => {
     <Fragment>
       <h3>Cases by Saved Health Regions - {selected_date}</h3>
       {saved_regions === null ?
-      <p className="mb-5"><em>You do not have any Saved Health Regions</em></p> :
+      <p style={{marginBottom:'30rem'}}><em>You do not have any Saved Health Regions</em></p> :
       <table className={`table filtered'`}>
         <thead>
           <tr className="text-center table-info">

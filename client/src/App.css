@@ -50,6 +50,31 @@ a {
   margin-top: 1rem;
 }
 
+.card {
+  opacity: 0;
+  animation: ani 0.75s ease-out 0.5s forwards;
+}
+
+.card > .card-body h5 {
+  opacity: 0;
+  animation: ani 0.75s ease-out 1s forwards;
+}
+
+.card > .card-body p {
+  opacity: 0;
+  animation: ani 0.75s ease-out 1s forwards;
+}
+
+.card > .card-body h3 {
+  opacity: 0;
+  animation: ani 0.75s ease-out 2s forwards;
+}
+
+.navbar-brand:active,
+.nav-link:active {
+  transform: scale(0.95);
+}
+
 /* Global Variables */
 .border-positive {
   border-bottom: 8px solid var(--primary-blue);
@@ -136,3 +161,8 @@ a {
   color: var(--bright-blue);
 }
 
+@keyframes ani {
+  100% {
+    opacity: 1;
+  }
+}

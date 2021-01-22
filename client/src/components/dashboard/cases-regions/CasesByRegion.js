@@ -70,7 +70,7 @@ const CasesByRegion = () => {
     <Fragment>
       <h3>Cases by Health Regions - {selected_date}</h3>
       {displayedData.length === 0 && filter.length === 0 
-        ? (<p><em>No Data Available for that period</em></p>) 
+        ? (<p style={{marginBottom:'30rem'}}><em>No Data Available for that period</em></p>) 
         : (<Fragment>
         <div className="input-group col-md-3 filter-table">
           <div className="input-group-prepend">
