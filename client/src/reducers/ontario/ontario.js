@@ -2,9 +2,11 @@ import {
   GET_ALL_CASES,
   GET_CASES_BY_REGION,
   GET_VACCINATIONS,
-  GET_REGION_DATA,
   SET_SELECTED_DATE,
-  CLEAR_SELECTED_DATE
+  CLEAR_SELECTED_DATE,
+  SET_SAVED_REGIONS,
+  REMOVE_SAVED_REGION,
+  ADD_SAVED_REGION
 } from '../../actions/types';
 
 const initialState = {
@@ -12,11 +14,10 @@ const initialState = {
   loading: true,
   cases_by_region: null,
   loading_region: true,
+  saved_regions: JSON.parse(localStorage.getItem('saved_regions')),
   selected_date: null,
   vaccinations_data: null,
   vaccinations_loading: true,
-  region_data: null,
-  region_loading: true
 }
 
 const ontarioReducer = (state = initialState, action) => {
@@ -34,11 +35,24 @@ const ontarioReducer = (state = initialState, action) => {
         cases_by_region: payload,
         loading_region: false
       }
-    case GET_REGION_DATA:
+    case SET_SAVED_REGIONS:
       return {
         ...state,
-        region_data: payload,
-        region_loading: false
+        saved_regions: payload
+      }
+    case ADD_SAVED_REGION:
+      const newObj = state.saved_regions ? [...state.saved_regions, payload] : [payload];
+      localStorage.setItem('saved_regions', JSON.stringify(newObj));
+      return {
+        ...state,
+        saved_regions: newObj
+      }
+    case REMOVE_SAVED_REGION:
+      const arr = state.saved_regions.filter(region => region.health_unit_num !== payload);
+      localStorage.setItem('saved_regions', JSON.stringify(arr));
+      return {
+        ...state,
+        saved_regions: arr
       }
     case GET_VACCINATIONS:
       return {

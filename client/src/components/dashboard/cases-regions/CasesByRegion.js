@@ -2,9 +2,10 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import TableHeader from './TableHeader';
+import RegionItem from './RegionItem';
 
 const CasesByRegion = () => {
-  const { selected_date } = useSelector(state => state.ontario);
+  const { selected_date, saved_regions } = useSelector(state => state.ontario);
   const cases = useSelector(state => state.ontario.cases_by_region);
 
   const [displayedData, setDisplayData] = useState([]);
@@ -16,10 +17,18 @@ const CasesByRegion = () => {
 
   useEffect(() => {
     const select_date = selected_date === "Total" ? cases[0].date : selected_date;
-    console.log(select_date);
-    const currData = cases.filter(day => day.date === select_date);
+    let currData = cases.filter(day => day.date === select_date);
     // sort by descing on confirmed today;
     currData.sort((a,b) => b.confirmed_today - a.confirmed_today);
+
+    // Check whether a regions is saved or not
+    currData = currData.map(region => {
+      if(saved_regions === null) return { ...region, saved: false }
+      else {
+        const exist = saved_regions.filter(s_reg => s_reg.health_unit_num === region.health_unit_num);
+        return { ...region, saved: exist.length > 0 ? true : false }
+      }
+    });
 
     setFullData([...currData]);
 
@@ -30,7 +39,7 @@ const CasesByRegion = () => {
       ));
       setDisplayData(data);
     } else setDisplayData(currData);
-  }, [selected_date, cases, filter]);
+  }, [selected_date, cases, filter, saved_regions]);
 
   const sortTable = (sortParam) => {
     // if clicking on already focused column
@@ -81,27 +90,14 @@ const CasesByRegion = () => {
             <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_confirmed' name='Total Confirmed' />}
             <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_resolved' name='Recovered' />
             <TableHeader sortedConfig={sortedConfig} sortedField={sortedField} onSort={sortTable} value='total_deaths' name='Deaths' />
+            <th style={{userSelect: 'none', cursor: 'pointer'}}>
+              <i className="fas fa-star" />
+            </th>
           </tr>
         </thead>
         <tbody>
           {displayedData.map(region => (
-          <tr key={region.id} className="text-center">
-            <td>{region.health_unit_num}</td>
-            <td className="text-left">
-              {/* <Link to={`${region.health_unit_name.toLowerCase().replace(/[,. ]/g, '_')}`}> */}
-                {region.health_unit_name}
-              {/* </Link> */}
-            </td>
-            {selected_date !== "Total" && 
-            <Fragment>
-              <td>{region.confirmed_today}</td>
-              <td>{region.active_today}</td>
-            </Fragment>}
-            {selected_date === "Total" &&
-            <td>{region.total_confirmed}</td>}
-            <td>{region.total_resolved}</td>
-            <td>{region.total_deaths}</td>
-          </tr>
+          <RegionItem key={region.id} region={region} />
           ))}
         </tbody>
       </table>

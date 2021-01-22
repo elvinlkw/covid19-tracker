@@ -4,9 +4,10 @@ import {
   GET_ALL_CASES,
   GET_CASES_BY_REGION,
   GET_VACCINATIONS,
-  GET_REGION_DATA,
   SET_SELECTED_DATE,
   CLEAR_SELECTED_DATE,
+  ADD_SAVED_REGION,
+  REMOVE_SAVED_REGION
 } from './types';
 
 // Get all cases
@@ -162,19 +163,28 @@ export const getVaccinations = () => async dispatch => {
   }
 }
 
+// Add Saved Region
+export const addSavedRegion = region => dispatch => {
+  dispatch({
+    type: ADD_SAVED_REGION,
+    payload: region
+  });
+}
+
+// Remove Saved Region
+export const removeSavedRegion = phu_num => dispatch => {
+  dispatch({
+    type: REMOVE_SAVED_REGION,
+    payload: phu_num
+  });
+}
+
 // Set Selected Date
 export const setSelectedDate = date => dispatch => {
   dispatch({
     type: SET_SELECTED_DATE,
     payload: date
   });
-}
-
-export const getRegionData = data => dispatch => {
-  dispatch({
-    type: GET_REGION_DATA,
-    payload: data
-  })
 }
 
 // Clear Selected Date

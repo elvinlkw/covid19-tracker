@@ -1,7 +1,8 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CasesSummary from './CasesSummary';
-import CasesByRegion from './CasesByRegion';
+import CasesSummary from './cases-summary/CasesSummary';
+import CasesByRegion from './cases-regions/CasesByRegion';
+import SavedRegions from './saved-regions/SavedRegions';
 import Charts from './charts/Charts';
 import Spinner from '../layout/Spinner';
 import { getOntarioCasesByRegion, getAllCases } from '../../actions/ontario';
@@ -12,19 +13,23 @@ const Dashboard = () => {
     cases_by_region,
     loading_region,
     cases,
-    loading
+    loading,
+    saved_regions
   } = useSelector(state => state.ontario);
 
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(saved_regions ? 0 : 1);
 
   const TABS = [
     {
       index: 0,
+      name: "Saved Regions",
+      icon: "bookmark"
+    }, {
+      index: 1,
       name: "Cases By Region",
       icon: "folder-open"
-    },
-    {
-      index: 1,
+    }, {
+      index: 2,
       name: "Charts",
       icon: "chart-line"
     }
@@ -60,9 +65,11 @@ const Dashboard = () => {
         ))}
       </ul>
       
+      {activeTab === 1 && !loading_region && cases_by_region !== null && cases_by_region.length > 0 && 
+      <CasesByRegion />}
       {activeTab === 0 && !loading_region && cases_by_region !== null && cases_by_region.length > 0 && 
-      (<CasesByRegion cases={cases_by_region} />)}
-      {activeTab === 1 && <Charts cases={cases} />}
+      <SavedRegions />}
+      {activeTab === 2 && <Charts cases={cases} />}
       </Fragment>)
       : <Spinner />}
     </>

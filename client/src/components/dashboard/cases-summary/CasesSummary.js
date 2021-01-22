@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './Card';
-import { setSelectedDate, getVaccinations } from '../../actions/ontario';
+import { setSelectedDate, getVaccinations } from '../../../actions/ontario';
 
 const CasesSummary = ({ cases }) => {
   const dispatch = useDispatch();

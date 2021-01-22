@@ -8,6 +8,7 @@
   --primary-red: #f03a3a;
   --primary-yellow: #ffc007;
   --primary-purple: #800080;
+  --star-yellow: #FEDD33;
 }
 
 body {
@@ -87,6 +88,10 @@ a {
 
 .filter-table {
   padding-left: 0;
+}
+
+.star {
+  color: var(--star-yellow)
 }
 
 /* Charts */
