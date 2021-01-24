@@ -15,9 +15,11 @@ app.use(express.json());
 // Routes
 const ontarioCasesRoute = require('./routes/ontario/cases');
 const ontarioSubsRoute = require('./routes/ontario/subscribe');
+const countriesRoute = require('./routes/countries/all');
 
 app.use('/api/ontario', ontarioCasesRoute);
 app.use('/api/ontario/subscription', ontarioSubsRoute);
+app.use('/api/countries/', countriesRoute);
 
 // Scheduler
 const startCron = require('./cron/prep_emails');
