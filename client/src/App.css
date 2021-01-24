@@ -99,9 +99,14 @@ a {
 /* Cases Summary */
 .card {
   box-shadow: 0 0 10px rgba(0,0,0,.2);
+  margin: 0 3rem 5rem 0;
 }
 
 /* Cases By Region CSS */
+.table-wrapper {
+  width: 100%;
+}
+
 .table {
   margin-top: 1rem;
   margin-bottom: 5rem;
@@ -159,6 +164,21 @@ a {
 .tabs li.tabs-active {
   text-decoration: underline;
   color: var(--bright-blue);
+}
+
+@media (max-width: 767px) {
+  .table {
+    display: inline-block;
+    overflow: scroll;
+  }
+
+  .card {
+    margin: 0 0 1em 0 !important;
+  }
+
+  .row {
+    margin: 0 !important;
+  }
 }
 
 @keyframes ani {

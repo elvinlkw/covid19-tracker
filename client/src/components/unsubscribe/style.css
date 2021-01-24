@@ -74,3 +74,13 @@
   background-color: var(--primary-blue);
   border-color: var(--primary-blue);
 }
+
+@media (max-width: 767px) {
+  .unsubscribe > div {
+    width: 100%;
+  }
+
+  .unsubscribe > div h3 {
+    text-align:center;
+  }
+}

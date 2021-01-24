@@ -11,8 +11,8 @@ const Unsubscribe = () => {
       e.preventDefault();
       dispatch(unsubscribe(email));
     }}>
-      <div className="">
-        <h3>Subscribe for Daily Updates</h3>
+      <div>
+        <h3>Unsubscribe from Daily Updates</h3>
         <label htmlFor="unsubscribe-input">Email address</label>
         <input type="email" autoComplete="off" id="unsubscribe-input" aria-describedby="emailHelp" value={email} onChange={e => setEmail(e.target.value)} />
         <button type="submit" className="btn btn-primary">Submit</button>
