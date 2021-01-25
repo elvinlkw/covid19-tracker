@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // File Imports
 import Navbar from './components/layout/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
+import Countries from './components/countries/Countries';
 import Unsubscribe from './components/unsubscribe/Unsubscribe';
-import Subscribe from './components/unsubscribe/Subscribe';
 import Alert from './components/layout/Alert';
 // Redux
 import store from './store';
@@ -22,8 +22,8 @@ const App = () => {
           <Alert />
           <Switch>
             <Route exact path="/" component={Dashboard} />
+            <Route path="/countries" component={Countries} />
             <Route path="/unsubscribe" component={Unsubscribe} />
-            <Route path="/subscribe" component={Subscribe} />
           </Switch>
         </div>
       </Router>

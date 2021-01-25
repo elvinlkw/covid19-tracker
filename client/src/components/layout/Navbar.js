@@ -16,7 +16,7 @@ const Navbar = () => {
               <NavLink className="nav-link" exact to="/">Dashboard <span className="sr-only">(current)</span></NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/subscribe">Subscribe <span className="sr-only">(current)</span></NavLink>
+              <NavLink className="nav-link" to="/countries">Countries <span className="sr-only">(current)</span></NavLink>
             </li>
           </ul>
         </div>

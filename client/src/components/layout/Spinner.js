@@ -12,7 +12,8 @@ const Spinner = () => {
 const style = {
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  height: '100vh'
 }
 
 export default Spinner;

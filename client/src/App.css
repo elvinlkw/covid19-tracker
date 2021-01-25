@@ -9,10 +9,21 @@
   --primary-yellow: #ffc007;
   --primary-purple: #800080;
   --star-yellow: #FEDD33;
+  --primary-black: #343a40;
 }
 
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+th > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+th > span i {
+  padding-left: 5px;
 }
 
 /* Input fields */

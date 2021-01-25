@@ -1,0 +1,36 @@
+.subscription-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-bottom: 5rem;
+}
+
+.subscription-wrapper > form input[type=text] {
+  outline: none;
+  font-size: 14px;
+  padding: 0.5rem 0.75rem;
+  width: 250px;
+  border: 2px solid #eee;
+  border-right: 0;
+}
+
+.subscription-wrapper > form input[type=text]:focus {
+  background-color: rgba(31, 161, 231, 0.2);
+  border: 2px solid var(--primary-blue);
+  border-right: 0;
+}
+
+.subscription-wrapper > form input[type=text]:focus + input[type=submit] {
+  border: 2px solid var(--primary-blue);
+  border-left: 0;
+}
+
+.subscription-wrapper > form input[type=submit] {
+  border: 2px solid #eee;
+  border-left: 0;
+  color: #fff;
+  background-color: #026aa4;
+  font-size: 14px;
+  padding: 0.5rem 0.75rem;
+}
