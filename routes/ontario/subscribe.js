@@ -54,12 +54,12 @@ router.post('/', [
     const msg = {
       from: '"Covid-19 Alert" <elvinlikamwa@gmail.com>', // sender address
       to: email, // list of receivers
-      subject: `Daily Covid19 Cases Update - Unsubscription Alert`, // Subject line
+      subject: `Daily Covid19 Cases Update - Subscription Alert`, // Subject line
       html: `
       <div style="font-family:Arial, Helvetica, sans-serif;position:relative;min-height:100vh;width:100%;background-color:#000;margin:0;">
         <div style="width:80%;height:100vh;margin:0 auto;border:1px solid #000;background-color:#fff;">
           <div style="width:80%;margin:0 auto;">
-            <h1 style="text-align:center">Ontario Daily Covid19 Sumary</h1>
+            <h1 style="text-align:center">Ontario Daily Covid19 Summary</h1>
           </div>
           <hr style="border-color:#e2dede;"/>
           <h2 style="text-align: center;background-color: #b1afaf; color:#000; padding:2rem;">Welcome to the Ontario Covid19 Tracker Subscription List</h2>
@@ -129,7 +129,7 @@ router.delete('/', [
       <div style="font-family:Arial, Helvetica, sans-serif;position:relative;min-height:100vh;width:100%;background-color:#000;margin:0;">
         <div style="width:80%;height:100vh;margin:0 auto;border:1px solid #000;background-color:#fff;">
           <div style="width:80%;margin:0 auto;">
-            <h1 style="text-align:center">Ontario Daily Covid19 Sumary</h1>
+            <h1 style="text-align:center">Ontario Daily Covid19 Summary</h1>
           </div>
           <hr style="border-color:#e2dede;"/>
           <h2 style="text-align: center;background-color: #b1afaf; color:#000; padding:2rem;">You have successfully unsubscribe from our email list</h2>

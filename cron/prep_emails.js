@@ -77,7 +77,7 @@ async function checkEmailReady() {
           <div style="font-family:Arial, Helvetica, sans-serif;position:relative;min-height:100vh;width:100%;background-color:#000;margin:0;">
           <div style="width:80%;height:100vh;margin:0 auto;border:1px solid #000;background-color:#fff;">
             <div style="width:80%;margin:0 auto;">
-              <h1 style="text-align:center">Ontario Daily Covid19 Sumary</h1>
+              <h1 style="text-align:center">Ontario Daily Covid19 Summary</h1>
               <h3 style="text-align:center">${date}</h3>
             </div>
             <hr style="border-color:#e2dede;"/>
