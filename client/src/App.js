@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
 import Countries from './components/countries/Countries';
+import Map from './components/world-map/Map';
 import Unsubscribe from './components/unsubscribe/Unsubscribe';
 import Alert from './components/layout/Alert';
 // Redux
@@ -18,11 +19,12 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navbar />
+        <Route path="/countries/map" component={Map} />
         <div className="container">
           <Alert />
           <Switch>
             <Route exact path="/" component={Dashboard} />
-            <Route path="/countries" component={Countries} />
+            <Route exact path="/countries" component={Countries} />
             <Route path="/unsubscribe" component={Unsubscribe} />
           </Switch>
         </div>

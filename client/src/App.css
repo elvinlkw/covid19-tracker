@@ -16,6 +16,12 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+th {
+  position: sticky;
+  top: 54px;
+  background: #fff;
+}
+
 th > span {
   display: flex;
   align-items: center;
@@ -52,6 +58,10 @@ a {
 }
 
 /* bootstrap modifications */
+.padded {
+  padding-top: 55px;
+}
+
 .nav-tabs .nav-link.active {
   border-top: 2px var(--bright-blue) solid !important;
   color: var(--bright-blue) !important;

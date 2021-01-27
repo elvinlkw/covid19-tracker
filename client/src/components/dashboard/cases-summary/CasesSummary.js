@@ -27,7 +27,7 @@ const CasesSummary = ({ cases }) => {
   }
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 padded">
       <h1 className="text-center mt-3 mb-3">Cases in Ontario</h1>
       <div className="d-flex justify-content-center">
         <div className="form-group col-md-4">

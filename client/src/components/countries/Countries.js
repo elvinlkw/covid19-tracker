@@ -65,7 +65,7 @@ const Countries = () => {
   } 
 
   return loading ? <Spinner /> : (
-    <div>
+    <div className="padded">
       <h2 className="mt-4 mb-4">Covid19 By Country</h2>
       <div className="input-group col-md-3 filter-table">
         <div className="input-group-prepend">

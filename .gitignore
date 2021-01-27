@@ -3,4 +3,5 @@
 /client/node_modules
 /client/.eslintcache
 
+/client/src/constants
 .env
