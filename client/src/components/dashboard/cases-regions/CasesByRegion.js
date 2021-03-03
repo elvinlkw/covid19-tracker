@@ -102,9 +102,15 @@ const CasesByRegion = () => {
           </tr>
         </thead>
         <tbody>
-          {displayedData.map(region => (
-          <RegionItem key={region.id} region={region} />
-          ))}
+          {displayedData.length > 0 
+          ? displayedData.map(region => (
+              <RegionItem key={region.id} region={region} />
+            ))
+          : <tr>
+              <td colSpan="100%">
+                <p className="no-result">No results found!</p>
+              </td>
+            </tr>}
         </tbody>
       </table>
       </Fragment>)}

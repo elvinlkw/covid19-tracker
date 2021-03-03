@@ -49,7 +49,11 @@ const ontarioReducer = (state = initialState, action) => {
       }
     case REMOVE_SAVED_REGION:
       const arr = state.saved_regions.filter(region => region.health_unit_num !== payload);
-      localStorage.setItem('saved_regions', JSON.stringify(arr));
+      if(arr.length === 0) {
+        localStorage.removeItem('saved_regions');
+      } else {
+        localStorage.setItem('saved_regions', JSON.stringify(arr));
+      }
       return {
         ...state,
         saved_regions: arr

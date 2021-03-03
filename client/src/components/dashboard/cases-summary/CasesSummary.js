@@ -36,6 +36,7 @@ const CasesSummary = ({ cases }) => {
             {cases.map((day, index) => (
             <option key={day.id} value={index}>{day.date}</option>))}
           </select>
+          {selectedId !== 0 && <p className="select-button" onClick={() => setSelectedId(0)}>Go to Today</p>}
         </div>
       </div>
       <div className="row d-flex justify-content-around flex-wrap">

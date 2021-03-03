@@ -123,6 +123,17 @@ a {
   margin: 0 3rem 5rem 0;
 }
 
+.select-button {
+  padding: 5px 0 0 20px;
+  width: fit-content;
+  width: -moz-fit-content;
+  width: webkit-fit-content;
+  font-size: 14px;
+  color: var(--bright-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* Cases By Region CSS */
 .table-wrapper {
   width: 100%;
@@ -131,6 +142,11 @@ a {
 .table {
   margin-top: 1rem;
   margin-bottom: 5rem;
+}
+
+.table .no-result {
+  text-align: center;
+  font-style: italic;
 }
 
 .filtered {
