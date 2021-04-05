@@ -15,3 +15,7 @@ export const COUNTRIES_ERROR = 'COUNTRIES_ERROR';
 // ALERT ACTIONS
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
+
+// SUBSCRIBE ACTIONS
+export const SUB_SUCCESS = 'SUB_SUCCESS';
+export const SUB_RESET = 'SUB_RESET';

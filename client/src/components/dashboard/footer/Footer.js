@@ -12,7 +12,6 @@ const style = {
   color: '#fff',
   padding: '2rem 0',
   zIndex: '10',
-  width: '100vw'
 }
 
 export default Footer;

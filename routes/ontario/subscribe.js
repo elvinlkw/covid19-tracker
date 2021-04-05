@@ -4,6 +4,7 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 const router = express.Router();
 const User = require('../../models/User');
+const checkToken = require('../../middleware/checkToken');
 
 // @route   GET /api/ontario/subscription
 // @desc    Get all subscribed emails
@@ -90,19 +91,18 @@ router.post('/', [
 // @desc    Remove a subscriber
 // @access  Public
 router.delete('/', [
-  check('email', 'You need to enter a valid email').isEmail(),
-  check('email', 'Email is a required field').not().isEmpty()
+  checkToken,
+  [
+    check('email', 'You need to enter a valid email').isEmail(),
+    check('email', 'Email is a required field').not().isEmpty(),
+    check('token', 'No token was provided').not().isEmpty()
+  ]
 ], async (req, res) => {
   try {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    
-    // const apikey = req.query.apikey;
-    // if(!apikey || apikey !== process.env.DELETE_KEY) {
-    //   return res.status(403)
-    // }
 
     const { email } = req.body;
     let user = await User.findOne({ email: email });
