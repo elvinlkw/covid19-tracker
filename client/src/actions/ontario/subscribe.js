@@ -38,7 +38,6 @@ export const unsubscribe = (email, token) => async dispatch => {
     dispatch(subSuccess());
   } catch (error) {
     const errors = error.response.data.errors;
-    console.log(error.response.data);
     if(errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
